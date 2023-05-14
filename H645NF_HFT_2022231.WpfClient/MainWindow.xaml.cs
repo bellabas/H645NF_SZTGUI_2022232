@@ -1,4 +1,5 @@
-﻿using System;
+﻿using H645NF_HFT_2022231.WpfClient.SubWindows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,30 @@ namespace H645NF_HFT_2022231.WpfClient
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click_Genre(object sender, RoutedEventArgs e)
+        {
+            GenreWindow genreWindow = new GenreWindow();
+            genreWindow.ShowDialog();
+        }
+
+        private void Button_Click_Rent(object sender, RoutedEventArgs e)
+        {
+            RentWindow rentWindow = new RentWindow();
+            rentWindow.ShowDialog();
+        }
+
+        private void Button_Click_Movie(object sender, RoutedEventArgs e)
+        {
+            MovieWindow movieWindow = new MovieWindow();
+            movieWindow.ShowDialog();
+        }
+
+        private void Button_Click_NonCrud(object sender, RoutedEventArgs e)
+        {
+            NoncrudWindow noncrudWindow = new NoncrudWindow();
+            noncrudWindow.ShowDialog();
         }
     }
 }

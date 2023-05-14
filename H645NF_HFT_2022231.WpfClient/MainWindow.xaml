@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:H645NF_HFT_2022231.WpfClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Movie Rental App" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Content="GENRE" Grid.Row="0" Margin="20" Click="Button_Click_Genre"/>
+        <Button Content="RENT" Grid.Row="1" Margin="20" Click="Button_Click_Rent"/>
+        <Button Content="MOVIE" Grid.Row="2" Margin="20" Click="Button_Click_Movie"/>
+        <Button Content="NON-CRUD" Grid.Row="3" Margin="20" Click="Button_Click_NonCrud"/>
     </Grid>
 </Window>
