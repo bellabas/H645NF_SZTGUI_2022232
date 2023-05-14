@@ -18,7 +18,12 @@
         <ListBox ItemsSource="{Binding Rents}" SelectedItem="{Binding SelectedRent}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Name}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Name:" />
+                        <Label Content="{Binding Name}" />
+                        <Label Content="-   MovieId:"/>
+                        <Label Content="{Binding MovieId}" />
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -37,8 +42,8 @@
             <TextBox Text="{Binding SelectedRent.Start}" Padding="10" />
             <Label Content="End" Background="LightBlue" Padding="10" />
             <TextBox Text="{Binding SelectedRent.End}" Padding="10" />
-            <Label Content="IntervalInDays" Background="LightBlue" Padding="10" />
-            <Label Content="{Binding SelectedRent.Interval, Mode=OneWay}" Padding="10" />
+            <Label Content="Interval In Days" Background="LightBlue" Padding="10" />
+            <Label Content="{Binding SelectedRent.Interval, Mode=OneWay}" Background="AliceBlue" Padding="10" />
             <Label Content="MovieID" Background="LightBlue" Padding="10" />
             <TextBox Text="{Binding SelectedRent.MovieId}" Padding="10" Margin="0,0,0,10" />
             <Button Content="Create Rent" Command="{Binding CreateRentCommand}" Margin="10" Padding="10" />
