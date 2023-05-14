@@ -1,7 +1,9 @@
-﻿using H645NF_HFT_2022231.Logic;
+﻿using H645NF_HFT_2022231.Endpoint.Services;
+using H645NF_HFT_2022231.Logic;
 using H645NF_HFT_2022231.Models;
 using H645NF_HFT_2022231.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,11 @@ namespace H645NF_HFT_2022231.Endpoint.Controllers
     public class MovieController : ControllerBase
     {
         IMovieLogic logic;
-        public MovieController(IMovieLogic logic)
+        IHubContext<SignalRHub> hub;
+        public MovieController(IMovieLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -37,18 +41,22 @@ namespace H645NF_HFT_2022231.Endpoint.Controllers
         public void Create([FromBody] Movie value)
         {
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("MovieCreated", value);
         }
 
         [HttpPut]
         public void Put([FromBody] Movie value)
         {
             this.logic.Update(value);
+            this.hub.Clients.All.SendAsync("MovieUpdated", value);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var movieToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("MovieDeleted", movieToDelete);
         }
     }
 }
