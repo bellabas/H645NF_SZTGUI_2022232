@@ -23,5 +23,11 @@ namespace H645NF_HFT_2022231.WpfClient.SubWindows
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
     }
 }

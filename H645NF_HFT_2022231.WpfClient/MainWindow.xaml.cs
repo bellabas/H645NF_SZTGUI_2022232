@@ -29,25 +29,29 @@ namespace H645NF_HFT_2022231.WpfClient
         private void Button_Click_Genre(object sender, RoutedEventArgs e)
         {
             GenreWindow genreWindow = new GenreWindow();
-            genreWindow.ShowDialog();
+            genreWindow.Show();
+            Close();
         }
 
         private void Button_Click_Rent(object sender, RoutedEventArgs e)
         {
             RentWindow rentWindow = new RentWindow();
-            rentWindow.ShowDialog();
+            rentWindow.Show();
+            Close();
         }
 
         private void Button_Click_Movie(object sender, RoutedEventArgs e)
         {
             MovieWindow movieWindow = new MovieWindow();
-            movieWindow.ShowDialog();
+            movieWindow.Show();
+            Close();
         }
 
         private void Button_Click_NonCrud(object sender, RoutedEventArgs e)
         {
             NoncrudWindow noncrudWindow = new NoncrudWindow();
-            noncrudWindow.ShowDialog();
+            noncrudWindow.Show();
+            Close();
         }
     }
 }
