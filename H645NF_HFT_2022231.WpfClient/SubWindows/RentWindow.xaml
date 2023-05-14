@@ -6,8 +6,45 @@
         xmlns:local="clr-namespace:H645NF_HFT_2022231.WpfClient"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="RentWindow" Height="450" Width="800">
+        Title="RentWindow" Height="900" Width="800">
+    <Window.DataContext>
+        <local:RentWindowViewModel />
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding Rents}" SelectedItem="{Binding SelectedRent}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1">
+            <Label Content="Name" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.Name}" Padding="10" />
+            <Label Content="Age" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.Age}" Padding="10" />
+            <Label Content="Gender" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.Gender}" Padding="10" />
+            <Label Content="Country" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.Country}" Padding="10" />
+            <Label Content="Rating" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.Rating}" Padding="10" />
+            <Label Content="Start" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.Start}" Padding="10" />
+            <Label Content="End" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.End}" Padding="10" />
+            <Label Content="IntervalInDays" Background="LightBlue" Padding="10" />
+            <Label Content="{Binding SelectedRent.Interval, Mode=OneWay}" Padding="10" />
+            <Label Content="MovieID" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedRent.MovieId}" Padding="10" Margin="0,0,0,10" />
+            <Button Content="Create Rent" Command="{Binding CreateRentCommand}" Margin="10" Padding="10" />
+            <Button Content="Delete Rent" Command="{Binding DeleteRentCommand}" Margin="10" Padding="10" />
+            <Button Content="Update Rent" Command="{Binding UpdateRentCommand}" Margin="10" Padding="10" />
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
     </Grid>
 </Window>

@@ -13,9 +13,9 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button Content="GENRE" Grid.Row="0" Margin="20" Click="Button_Click_Genre"/>
-        <Button Content="RENT" Grid.Row="1" Margin="20" Click="Button_Click_Rent"/>
-        <Button Content="MOVIE" Grid.Row="2" Margin="20" Click="Button_Click_Movie"/>
+        <Button Content="MOVIES" Grid.Row="0" Margin="20" Click="Button_Click_Movie"/>
+        <Button Content="GENRE" Grid.Row="1" Margin="20" Click="Button_Click_Genre"/>
+        <Button Content="RENT" Grid.Row="2" Margin="20" Click="Button_Click_Rent"/>
         <Button Content="NON-CRUD" Grid.Row="3" Margin="20" Click="Button_Click_NonCrud"/>
     </Grid>
 </Window>
