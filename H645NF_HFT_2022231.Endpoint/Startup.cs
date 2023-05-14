@@ -1,3 +1,4 @@
+using H645NF_HFT_2022231.Endpoint.Services;
 using H645NF_HFT_2022231.Logic;
 using H645NF_HFT_2022231.Models;
 using H645NF_HFT_2022231.Repository;
@@ -40,6 +41,7 @@ namespace H645NF_HFT_2022231.Endpoint
             services.AddTransient<IRentLogic, RentLogic>();
             services.AddTransient<IGenreLogic, GenreLogic>();
 
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -74,6 +76,7 @@ namespace H645NF_HFT_2022231.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace H645NF_HFT_2022231.WpfClient.SubWindows
+namespace H645NF_HFT_2022231.WpfClient
 {
     /// <summary>
     /// Interaction logic for NoncrudWindow.xaml
