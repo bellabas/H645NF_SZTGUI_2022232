@@ -53,15 +53,14 @@ namespace H645NF_HFT_2022231.WpfClient
         {
             if (!IsInDesignMode)
             {
-                var restservice = new RestService("http://localhost:31652/");
+                //GenreWithAverageBudgets = new RestService("http://localhost:31652/").Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
+                MoviesByGenres = new RestService("http://localhost:31652/").Get<MoviesByGenre>("GenreNonCRUDMethods/GetMoviesByGenre");
+                MoviesAverageRatings = new RestService("http://localhost:31652/").Get<MoviesAverageRating>("MovieNonCRUDMethods/GetMoviesAverageRating");
+                NationalMovieRents = new RestService("http://localhost:31652/").Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
+                RentalNameWithMovieTitleAndGenres = new RestService("http://localhost:31652/").Get<RentalNameWithMovieTitleAndGenre>("RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre");
+                RentedMovieTitleOfPersons = new RestService("http://localhost:31652/").Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}");
 
-                GenreWithAverageBudgets = restservice.Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
-                MoviesByGenres = restservice.Get<MoviesByGenre>("GenreNonCRUDMethods/GetMoviesByGenre");
-                MoviesAverageRatings = restservice.Get<MoviesAverageRating>("MovieNonCRUDMethods/GetMoviesAverageRating");
-                NationalMovieRents = restservice.Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
-                RentalNameWithMovieTitleAndGenres = restservice.Get<RentalNameWithMovieTitleAndGenre>("RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre");
-
-                RentedMovieTitleOfPersonCommand = new RelayCommand(() => { RentedMovieTitleOfPersons = restservice.Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}"); }, () => { return Name != ""; });
+                RentedMovieTitleOfPersonCommand = new RelayCommand(() => { RentedMovieTitleOfPersons = new RestService("http://localhost:31652/").Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}"); }, () => { return Name != ""; });
             }
         }
     }

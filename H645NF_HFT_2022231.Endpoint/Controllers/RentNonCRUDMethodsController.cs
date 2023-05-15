@@ -3,7 +3,6 @@ using H645NF_HFT_2022231.Logic;
 using H645NF_HFT_2022231.Models;
 using H645NF_HFT_2022231.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +17,9 @@ namespace H645NF_HFT_2022231.Endpoint.Controllers
     public class RentNonCRUDMethodsController : ControllerBase
     {
         IRentLogic logic;
-        IHubContext<SignalRHub> hub;
-        public RentNonCRUDMethodsController(IRentLogic logic, IHubContext<SignalRHub> hub)
+        public RentNonCRUDMethodsController(IRentLogic logic)
         {
             this.logic = logic;
-            this.hub = hub;
         }
 
         [HttpGet]
