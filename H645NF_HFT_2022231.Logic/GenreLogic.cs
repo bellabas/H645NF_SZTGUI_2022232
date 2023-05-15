@@ -89,7 +89,7 @@ namespace H645NF_HFT_2022231.Logic
                          select new GenreWithAverageBudget()
                          {
                              Genre = x.Value,
-                             BudgetAverage = x.Movies.Average(m => m.Budget)
+                             BudgetAverage = x.Movies.Any() ? x.Movies.Average(m => m.Budget) : 0
                          };
             return result;
         }
