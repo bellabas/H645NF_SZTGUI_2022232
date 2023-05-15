@@ -40,11 +40,11 @@ namespace H645NF_HFT_2022231.WpfClient
                         Value = value.Value,
                     };
                     OnPropertyChanged();
+                    (UpdateGenreCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeleteGenreCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
-
 
         public ICommand CreateGenreCommand { get; set; }
 
@@ -67,6 +67,7 @@ namespace H645NF_HFT_2022231.WpfClient
             if (!IsInDesignMode)
             {
                 Genres = new RestCollection<Genre>("http://localhost:31652/", "genre", "hub");
+
                 CreateGenreCommand = new RelayCommand(() =>
                 {
                     Genres.Add(new Genre()
@@ -86,6 +87,14 @@ namespace H645NF_HFT_2022231.WpfClient
                         ErrorMessage = ex.Message;
                     }
 
+                },
+                () =>
+                {
+                    if (SelectedGenre != null && SelectedGenre.Value != null)
+                    {
+                        return true;
+                    }
+                    return false;
                 });
 
                 DeleteGenreCommand = new RelayCommand(() =>
@@ -94,7 +103,11 @@ namespace H645NF_HFT_2022231.WpfClient
                 },
                 () =>
                 {
-                    return SelectedGenre != null;
+                    if (SelectedGenre != null && SelectedGenre.Value != null)
+                    {
+                        return true;
+                    }
+                    return false;
                 });
                 SelectedGenre = new Genre();
             }

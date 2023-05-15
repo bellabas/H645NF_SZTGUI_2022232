@@ -45,11 +45,11 @@ namespace H645NF_HFT_2022231.WpfClient
                         GenreId = value.GenreId
                 };
                     OnPropertyChanged();
+                    (UpdateMovieCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeleteMovieCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
-
 
         public ICommand CreateMovieCommand { get; set; }
 
@@ -72,6 +72,7 @@ namespace H645NF_HFT_2022231.WpfClient
             if (!IsInDesignMode)
             {
                 Movies = new RestCollection<Movie>("http://localhost:31652/", "movie", "hub");
+
                 CreateMovieCommand = new RelayCommand(() =>
                 {
                     Movies.Add(new Movie()
@@ -96,6 +97,14 @@ namespace H645NF_HFT_2022231.WpfClient
                         ErrorMessage = ex.Message;
                     }
 
+                },
+                () =>
+                {
+                    if (SelectedMovie != null && SelectedMovie.Title != null && SelectedMovie.Country != null)
+                    {
+                        return true;
+                    }
+                    return false;
                 });
 
                 DeleteMovieCommand = new RelayCommand(() =>
@@ -104,7 +113,11 @@ namespace H645NF_HFT_2022231.WpfClient
                 },
                 () =>
                 {
-                    return SelectedMovie != null;
+                    if (SelectedMovie != null && SelectedMovie.Title != null && SelectedMovie.Country != null)
+                    {
+                        return true;
+                    }
+                    return false;
                 });
                 SelectedMovie = new Movie();
             }

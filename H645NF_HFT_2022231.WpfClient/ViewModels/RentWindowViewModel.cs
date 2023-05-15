@@ -46,6 +46,7 @@ namespace H645NF_HFT_2022231.WpfClient
                         MovieId = value.MovieId
                 };
                     OnPropertyChanged();
+                    (UpdateRentCommand as RelayCommand).NotifyCanExecuteChanged();
                     (DeleteRentCommand as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
@@ -96,6 +97,14 @@ namespace H645NF_HFT_2022231.WpfClient
                     {
                         ErrorMessage = ex.Message;
                     }
+                },
+                () =>
+                {
+                    if (SelectedRent != null && SelectedRent.Name != null && SelectedRent.Country != null)
+                    {
+                        return true;
+                    }
+                    return false;
                 });
 
                 DeleteRentCommand = new RelayCommand(() =>
@@ -104,7 +113,11 @@ namespace H645NF_HFT_2022231.WpfClient
                 },
                 () =>
                 {
-                    return SelectedRent != null;
+                    if (SelectedRent != null && SelectedRent.Name != null && SelectedRent.Country != null)
+                    {
+                        return true;
+                    }
+                    return false;
                 });
 
                 SelectedRent = new Rent();
