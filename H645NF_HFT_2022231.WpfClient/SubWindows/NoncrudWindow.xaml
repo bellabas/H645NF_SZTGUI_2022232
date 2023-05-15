@@ -21,7 +21,7 @@
             <Button Content="Get Movies Average Rating" Click="Button_Click_2" Padding="10" Margin="10"/>
             <Button Content="Get Rental Name With Movie Title And Genre" Click="Button_Click_3" Padding="10" Margin="10"/>
             <Button Content="Get National Movie Rent" Click="Button_Click_4" Padding="10" Margin="10"/>
-            <Button Content="Get Rented Movie Titles Of Person" Command="{Binding NotifyCommand}" Click="Button_Click_5" Padding="10" Margin="10"/>
+            <Button Content="Get Rented Movie Titles Of Person" Command="{Binding RentedMovieTitleOfPersonCommand}" Click="Button_Click_5" Padding="10" Margin="10"/>
             <TextBox Text="{Binding Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Padding="10" Margin="10"/>
             <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
