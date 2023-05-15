@@ -200,7 +200,7 @@ namespace H645NF_HFT_2022231.WpfClient
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
-            (DataContext as NoncrudWindowViewModel).NotifyCommand.Execute(null);
+            (DataContext as NoncrudWindowViewModel).RentedMovieTitleOfPersonCommand.Execute(null);
             // set the ItemsSource binding
             var binding = new Binding("RentedMovieTitleOfPersons");
             binding.Mode = BindingMode.OneWay;
