@@ -53,7 +53,7 @@ namespace H645NF_HFT_2022231.WpfClient
         {
             if (!IsInDesignMode)
             {
-                //GenreWithAverageBudgets = new RestService("http://localhost:31652/").Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
+                GenreWithAverageBudgets = new RestService("http://localhost:31652/").Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
                 MoviesByGenres = new RestService("http://localhost:31652/").Get<MoviesByGenre>("GenreNonCRUDMethods/GetMoviesByGenre");
                 MoviesAverageRatings = new RestService("http://localhost:31652/").Get<MoviesAverageRating>("MovieNonCRUDMethods/GetMoviesAverageRating");
                 NationalMovieRents = new RestService("http://localhost:31652/").Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
