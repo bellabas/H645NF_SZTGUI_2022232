@@ -7,7 +7,25 @@
         mc:Ignorable="d"
         Closing="Window_Closing"
         Title="NoncrudWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:NoncrudWindowViewModel />
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Content="Get Genre With Average Budget" Click="Button_Click" Padding="10" Margin="10"/>
+            <Button Content="Get Movies By Genre" Click="Button_Click_1" Padding="10" Margin="10"/>
+            <Button Content="Get Movies Average Rating" Click="Button_Click_2" Padding="10" Margin="10"/>
+            <Button Content="Get Rental Name With Movie Title And Genre" Click="Button_Click_3" Padding="10" Margin="10"/>
+            <Button Content="Get National Movie Rent" Click="Button_Click_4" Padding="10" Margin="10"/>
+            <Button Content="Get Rented Movie Titles Of Person" Click="Button_Click_5" Padding="10" Margin="10"/>
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
+        <ListBox x:Name="listbox_result" Grid.Column="1">
+            
+        </ListBox>
     </Grid>
 </Window>

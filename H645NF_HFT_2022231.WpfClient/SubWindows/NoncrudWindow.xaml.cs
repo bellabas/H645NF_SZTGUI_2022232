@@ -29,5 +29,39 @@ namespace H645NF_HFT_2022231.WpfClient
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // set the ItemsSource binding
+            var binding = new Binding("");
+            binding.Mode = BindingMode.OneWay;
+            listbox_result.SetBinding(ListBox.ItemsSourceProperty, binding);
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
