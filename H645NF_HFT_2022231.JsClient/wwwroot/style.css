@@ -1,2 +1,39 @@
-﻿body {
+﻿table{
+    width: 100%;
 }
+
+table, th, td{
+    border: 1px solid black;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 5px;
+}
+
+th{
+    background-color: lightblue;
+}
+
+table button {
+    padding: 2px;
+}
+
+#genreCreate{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+#genreCreate label, input, button{
+    margin: 7px;
+    padding: 7px;
+}
+
+#genreCreate{
+    font-weight: bolder;
+}
+

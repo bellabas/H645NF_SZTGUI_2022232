@@ -26,12 +26,6 @@ namespace H645NF_HFT_2022231.JsClient
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(x => x
-                .AllowCredentials()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .WithOrigins("http://localhost:23383"));
-
             app.UseRouting();
 
             app.UseStaticFiles();
