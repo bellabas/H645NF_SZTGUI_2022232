@@ -100,10 +100,11 @@ namespace H645NF_HFT_2022231.Logic
                          select new MoviesByGenre()
                          {
                              GenreName = g.Value,
-                             MovieTitles = g.Movies.Select(m => m.Title)
+                             MovieTitles = g.Movies.DefaultIfEmpty().Select(m => m == null ? "No movies found in this genre" : m.Title)
                          };
             return result;
         }
+
 
     }
 }
