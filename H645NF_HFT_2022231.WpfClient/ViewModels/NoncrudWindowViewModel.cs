@@ -27,17 +27,25 @@ namespace H645NF_HFT_2022231.WpfClient
         public string Name
         {
             get { return name; }
-            set { name = value; OnPropertyChanged(); }
+            set { SetProperty(ref name, value); OnPropertyChanged(); (NotifyCommand as RelayCommand).NotifyCanExecuteChanged(); }
         }
 
+        public ICommand NotifyCommand { get; set; }
 
-        public RestCollection<GenreWithAverageBudget> GenreWithAverageBudgets { get; set; }
-        public RestCollection<MoviesByGenre> MoviesByGenres { get; set; }
-        public RestCollection<MoviesAverageRating> MoviesAverageRatings { get; set; }
-        public RestCollection<NationalMovieRent> NationalMovieRents { get; set; }
-        public RestCollection<RentalNameWithMovieTitleAndGenre> RentalNameWithMovieTitleAndGenres { get; set; }
-        public RestCollection<RentedMovieTitleOfPerson> RentedMovieTitleOfPersons { get; set; }
-
+        //collections
+        public List<GenreWithAverageBudget> GenreWithAverageBudgets { get; set; }
+        public List<MoviesByGenre> MoviesByGenres { get; set; }
+        public List<MoviesAverageRating> MoviesAverageRatings { get; set; }
+        public List<NationalMovieRent> NationalMovieRents { get; set; }
+        public List<RentalNameWithMovieTitleAndGenre> RentalNameWithMovieTitleAndGenres { get; set; }
+        public List<RentedMovieTitleOfPerson> RentedMovieTitleOfPersons { get; set; }
+        //variables
+        public GenreWithAverageBudget SelectedGenreWithAverageBudget { get; set; }
+        public MoviesByGenre SelectedMoviesByGenre { get; set; }
+        public MoviesAverageRating SelectedMoviesAverageRating { get; set; }
+        public NationalMovieRent SelectedNationalMovieRent { get; set; }
+        public RentalNameWithMovieTitleAndGenre SelectedRentalNameWithMovieTitleAndGenre { get; set; }
+        public RentedMovieTitleOfPerson SelectedRentedMovieTitleOfPerson { get; set; }
 
         public static bool IsInDesignMode
         {
@@ -52,12 +60,22 @@ namespace H645NF_HFT_2022231.WpfClient
         {
             if (!IsInDesignMode)
             {
-                GenreWithAverageBudgets = new RestCollection<GenreWithAverageBudget>("http://localhost:31652/", "GenreNonCRUDMethods/GetGenreWithAverageBudget", "hub");
-                MoviesByGenres = new RestCollection<MoviesByGenre>("http://localhost:31652/", "GenreNonCRUDMethods/GetMoviesByGenre", "hub");
-                MoviesAverageRatings = new RestCollection<MoviesAverageRating>("http://localhost:31652/", "MovieNonCRUDMethods/GetMoviesAverageRating", "hub");
-                NationalMovieRents = new RestCollection<NationalMovieRent>("http://localhost:31652/", "RentNonCRUDMethods/GetNationalMovieRent", "hub");
-                RentalNameWithMovieTitleAndGenres = new RestCollection<RentalNameWithMovieTitleAndGenre>("http://localhost:31652/", "RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre", "hub");
-                RentedMovieTitleOfPersons = new RestCollection<RentedMovieTitleOfPerson>("http://localhost:31652/", $"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={name}", "hub");
+                var restservice = new RestService("http://localhost:31652/");
+
+                GenreWithAverageBudgets = restservice.Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
+                MoviesByGenres = restservice.Get<MoviesByGenre>("GenreNonCRUDMethods/GetMoviesByGenre");
+                MoviesAverageRatings = restservice.Get<MoviesAverageRating>("MovieNonCRUDMethods/GetMoviesAverageRating");
+                NationalMovieRents = restservice.Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
+                RentalNameWithMovieTitleAndGenres = restservice.Get<RentalNameWithMovieTitleAndGenre>("RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre");
+
+                NotifyCommand = new RelayCommand(() => { RentedMovieTitleOfPersons = restservice.Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}"); }, () => { return Name != ""; });
+
+                SelectedGenreWithAverageBudget = new GenreWithAverageBudget();
+                SelectedMoviesByGenre = new MoviesByGenre();
+                SelectedMoviesAverageRating = new MoviesAverageRating();
+                SelectedNationalMovieRent = new NationalMovieRent();
+                SelectedRentalNameWithMovieTitleAndGenre = new RentalNameWithMovieTitleAndGenre();
+                SelectedRentedMovieTitleOfPerson = new RentedMovieTitleOfPerson();
             }
         }
     }
