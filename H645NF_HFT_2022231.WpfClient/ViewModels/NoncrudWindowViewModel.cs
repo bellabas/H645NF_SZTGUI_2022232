@@ -27,10 +27,10 @@ namespace H645NF_HFT_2022231.WpfClient
         public string Name
         {
             get { return name; }
-            set { SetProperty(ref name, value); OnPropertyChanged(); (NotifyCommand as RelayCommand).NotifyCanExecuteChanged(); }
+            set { SetProperty(ref name, value); (RentedMovieTitleOfPersonCommand as RelayCommand).NotifyCanExecuteChanged(); }
         }
 
-        public ICommand NotifyCommand { get; set; }
+        public ICommand RentedMovieTitleOfPersonCommand { get; set; }
 
         //collections
         public List<GenreWithAverageBudget> GenreWithAverageBudgets { get; set; }
@@ -39,13 +39,6 @@ namespace H645NF_HFT_2022231.WpfClient
         public List<NationalMovieRent> NationalMovieRents { get; set; }
         public List<RentalNameWithMovieTitleAndGenre> RentalNameWithMovieTitleAndGenres { get; set; }
         public List<RentedMovieTitleOfPerson> RentedMovieTitleOfPersons { get; set; }
-        //variables
-        public GenreWithAverageBudget SelectedGenreWithAverageBudget { get; set; }
-        public MoviesByGenre SelectedMoviesByGenre { get; set; }
-        public MoviesAverageRating SelectedMoviesAverageRating { get; set; }
-        public NationalMovieRent SelectedNationalMovieRent { get; set; }
-        public RentalNameWithMovieTitleAndGenre SelectedRentalNameWithMovieTitleAndGenre { get; set; }
-        public RentedMovieTitleOfPerson SelectedRentedMovieTitleOfPerson { get; set; }
 
         public static bool IsInDesignMode
         {
@@ -68,14 +61,7 @@ namespace H645NF_HFT_2022231.WpfClient
                 NationalMovieRents = restservice.Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
                 RentalNameWithMovieTitleAndGenres = restservice.Get<RentalNameWithMovieTitleAndGenre>("RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre");
 
-                NotifyCommand = new RelayCommand(() => { RentedMovieTitleOfPersons = restservice.Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}"); }, () => { return Name != ""; });
-
-                SelectedGenreWithAverageBudget = new GenreWithAverageBudget();
-                SelectedMoviesByGenre = new MoviesByGenre();
-                SelectedMoviesAverageRating = new MoviesAverageRating();
-                SelectedNationalMovieRent = new NationalMovieRent();
-                SelectedRentalNameWithMovieTitleAndGenre = new RentalNameWithMovieTitleAndGenre();
-                SelectedRentedMovieTitleOfPerson = new RentedMovieTitleOfPerson();
+                RentedMovieTitleOfPersonCommand = new RelayCommand(() => { RentedMovieTitleOfPersons = restservice.Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}"); }, () => { return Name != ""; });
             }
         }
     }
