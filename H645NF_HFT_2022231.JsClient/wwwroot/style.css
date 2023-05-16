@@ -20,20 +20,29 @@ th{
 
 table button {
     padding: 2px;
+    margin: 10px;
 }
 
-#genreCreate{
+#genreCreateForm {
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
+    font-weight: bolder;
 }
 
-#genreCreate label, input, button{
+#genreCreateForm label, #genreCreateForm input, #genreCreateForm button {
     margin: 7px;
     padding: 7px;
 }
 
-#genreCreate{
+#genreUpdateForm td {
     font-weight: bolder;
 }
 
+#genreUpdateForm label, #genreUpdateForm input, #genreUpdateForm button {
+    display: block;
+    margin: 0px auto 7px auto;
+    padding: 7px;
+    width: 50%;
+    box-sizing: border-box; /* Include padding within the width calculation */
+}

@@ -61,12 +61,12 @@ async function getGenres() {
 function displayGenres() {
     document.getElementById('genreResultArea').innerHTML = "";
     genres.forEach(g => {
-        document.getElementById('genreResultArea').innerHTML += '<tr><td>' + g.genreId + '</td><td>' + g.value + `</td><td><button type="button" onclick="deleteGenre(${g.genreId})">Delete</button></td</tr>`;
+        document.getElementById('genreResultArea').innerHTML += `<tr id="genreRow${g.genreId}"><td>` + g.genreId + '</td><td>' + g.value + `</td><td><button type="button" onclick="deleteGenre(${g.genreId})">Delete</button><button type="button" onclick="showUpdateGenre(${g.genreId})">Update</button></td></tr>`;
     });
 }
 
 function createGenre() {
-    let genreValue = document.getElementById('genreValue').value;
+    let genreCreateValue = document.getElementById('genreCreateValue').value;
     fetch('http://localhost:31652/genre',
         {
             method: 'POST',
@@ -76,7 +76,7 @@ function createGenre() {
             },
             body: JSON.stringify(
             {
-                value: genreValue
+                value: genreCreateValue
             }),
         })
         .then(response => response)
@@ -100,6 +100,46 @@ function deleteGenre(id) {
                 'Content-Type': 'application/json',
             },
             body: null
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getGenres();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function showUpdateGenre(id) {
+    if (document.getElementById('genreUpdateForm') != null) {
+        document.getElementById('genreUpdateForm').remove();
+    }
+    let elementToUpdate = document.getElementById("genreRow" + id);
+
+    let newElement = document.createElement('tr');
+    newElement.setAttribute('id', 'genreUpdateForm');
+    newElement.innerHTML = `<td colspan="3"><label>Genre value</label>
+            <input type="text" id="genreUpdateValue" value="${genres.find(g => g.genreId == id).value}" />
+            <button type="button" onclick="updateGenre(${id})">Update Genre</button></td>`;
+
+    elementToUpdate.parentElement.insertBefore(newElement, elementToUpdate.nextElementSibling);
+}
+
+function updateGenre(id) {
+    let genreUpdateValue = document.getElementById('genreUpdateValue').value;
+    fetch('http://localhost:31652/genre',
+        {
+            method: 'PUT',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    genreId: id,
+                    value: genreUpdateValue
+                }),
         })
         .then(response => response)
         .then(data => {
