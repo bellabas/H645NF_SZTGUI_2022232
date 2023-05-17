@@ -106,16 +106,19 @@ async function start() {
 
 function showGenre() {
     hideAll();
+    document.getElementById('genreCreateForm').style.display = "none";
     document.getElementById('genreDiv').style.display = 'block';
 }
 
 function showMovie() {
     hideAll();
+    document.getElementById('movieCreateForm').style.display = "none";
     document.getElementById('movieDiv').style.display = 'block';
 }
 
 function showRent() {
     hideAll();
+    document.getElementById('rentCreateForm').style.display = "none";
     document.getElementById('rentDiv').style.display = 'block';
 }
 
@@ -133,7 +136,33 @@ function hideAll() {
     document.getElementById('rentDiv').style.display = 'none';
     document.getElementById('noncrudDiv').style.display = 'none';
 }
+// switches
+function createMovieSwitch() {
+    if (document.getElementById('movieCreateForm').style.display == "flex") {
+        document.getElementById('movieCreateForm').style.display = "none";
+    }
+    else {
+        document.getElementById('movieCreateForm').style.display = "flex";
+    }
+}
 
+function createGenreSwitch() {
+    if (document.getElementById('genreCreateForm').style.display == "flex") {
+        document.getElementById('genreCreateForm').style.display = "none";
+    }
+    else {
+        document.getElementById('genreCreateForm').style.display = "flex";
+    }
+}
+
+function createRentSwitch() {
+    if (document.getElementById('rentCreateForm').style.display == "flex") {
+        document.getElementById('rentCreateForm').style.display = "none";
+    }
+    else {
+        document.getElementById('rentCreateForm').style.display = "flex";
+    }
+}
 
 // MOVIE
 

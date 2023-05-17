@@ -148,6 +148,15 @@ table button {
     padding: 15px;
 }
 
+.createSwitch {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#movieCreateForm, #genreCreateForm, #rentCreateForm {
+    display: none;
+}
+
 
 /* COLORS */
 
