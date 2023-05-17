@@ -1,7 +1,9 @@
 ﻿// VARIABLES
 let genres = [];
-let mvoies = [];
+let movies = [];
 let rents = [];
+
+let genreWithAverageBudgets = [];
 
 let connection = null;
 
@@ -112,11 +114,16 @@ function showRent() {
     document.getElementById('rentDiv').style.display = 'block';
 }
 
+function showNoncrud() {
+    hideAll();
+    document.getElementById('noncrudDiv').style.display = 'block';
+}
+
 function hideAll() {
     document.getElementById('genreDiv').style.display = 'none';
     document.getElementById('movieDiv').style.display = 'none';
     document.getElementById('rentDiv').style.display = 'none';
-
+    document.getElementById('noncrudDiv').style.display = 'none';
 }
 
 // MOVIE
@@ -529,3 +536,27 @@ function updateRent(id) {
         });
 }
 
+// NONCRUDS
+
+async function getGenreWithAverageBudget() {
+    await fetch('http://localhost:31652/rent')
+        .then(x => x.json())
+        .then(y => {
+            genreWithAverageBudgets = y;
+            //console.log(genreWithAverageBudgets);
+            displayGenreWithAverageBudget();
+        });
+}
+
+
+function displayGenreWithAverageBudget() {
+    document.getElementById('rentResultArea').innerHTML = "";
+    rents.forEach(r => {
+        document.getElementById('rentResultArea').innerHTML += `<tr id="rentRow${r.rentId}">` + '<td>' + r.rentId + '</td>' +
+            '<td>' + r.name + '</td>' + '<td>' + r.age + '</td>' + '<td>' + r.gender + '</td>' + '<td>' + r.country + '</td>' +
+            '<td>' + r.rating + '</td>' + '<td>' + r.start + '</td>' + '<td>' + r.end + '</td>' + '<td>' + r.interval + '</td>' +
+            '<td>' + r.movieId + '</td>' +
+            `<td><button type="button" onclick="deleteRent(${r.rentId})">Delete</button>` +
+            `<button type="button" onclick="showUpdateRent(${r.rentId})">Update</button></td></tr>`;
+    });
+}

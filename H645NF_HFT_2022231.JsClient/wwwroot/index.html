@@ -7,10 +7,10 @@
 </head>
 <body>
     <div id="menuDiv">
-        <button onclick="showMovie()">Movie</button>
-        <button onclick="showGenre()">Genre</button>
-        <button onclick="showRent()">Rent</button>
-        <button onclick="showNonCrud()">NonCRUD</button>
+        <button type="button" onclick="showMovie()">Movie</button>
+        <button type="button" onclick="showGenre()">Genre</button>
+        <button type="button" onclick="showRent()">Rent</button>
+        <button type="button" onclick="showNoncrud()">NonCRUD</button>
     </div>
 
     <div id="movieDiv">
@@ -114,6 +114,18 @@
             <tbody id="rentResultArea">
             </tbody>
         </table>
+    </div>
+
+    <div id="noncrudDiv" >
+        <div id="noncrudButtons">
+            <button type="button">Get Genre With Average Budget</button>
+            <button type="button">Get Movies By Genre</button>
+            <button type="button">Get Movies Average Rating</button>
+            <button type="button">Get Rental Name With Movie Title And Genre</button>
+            <button type="button">Get National Movie Rent</button>
+            <input type="text" id="personsName" placeholder="Enter the Person's Name here" />
+            <button type="button">Get Rented Movie Titles Of Person</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>

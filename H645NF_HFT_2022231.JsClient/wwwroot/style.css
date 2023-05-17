@@ -112,6 +112,12 @@ table button {
     display: none;
 }
 
+/* NONCRUDS */
+
+#noncrudDiv {
+    display: none;
+}
+
 
 /* MENU */
 
