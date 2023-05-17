@@ -1,15 +1,43 @@
-﻿let genres = [];
+﻿// VARIABLES
+let genres = [];
+let mvoies = [];
+let rents = [];
+
 let connection = null;
 
+// MAIN
 setUpSignalR();
 getGenres();
+getMovies();
 
+
+// SIGNALR
 function setUpSignalR() {
     connection = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:31652/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
+    // movie
+    connection.on("MovieCreated", (user, message) => {
+        //console.log(user);
+        //console.log(message);
+        getMovies();
+    });
+
+    connection.on("MovieDeleted", (user, message) => {
+        //console.log(user);
+        //console.log(message);
+        getMovies();
+    });
+
+    connection.on("MovieUpdated", (user, message) => {
+        //console.log(user);
+        //console.log(message);
+        getMovies();
+    });
+
+    // genre
     connection.on("GenreCreated", (user, message) =>
     {
         //console.log(user);
@@ -46,6 +74,176 @@ async function start() {
         setTimeout(start, 5000);
     }
 };
+
+// MENU
+
+function showGenre() {
+    hideAll();
+    document.getElementById('genreDiv').style.display = 'block';
+}
+
+function showMovie() {
+    hideAll();
+    document.getElementById('movieDiv').style.display = 'block';
+}
+
+function showRent() {
+    hideAll();
+    document.getElementById('rentDiv').style.display = 'block';
+}
+
+function hideAll() {
+    document.getElementById('genreDiv').style.display = 'none';
+    document.getElementById('movieDiv').style.display = 'none';
+    //document.getElementById('rentDiv').style.display = 'none';
+
+}
+
+// MOVIE
+
+async function getMovies() {
+    await fetch('http://localhost:31652/movie')
+        .then(x => x.json())
+        .then(y => {
+            movies = y;
+            //console.log(movies);
+            displayMovies();
+        });
+}
+
+
+function displayMovies() {
+    document.getElementById('movieResultArea').innerHTML = "";
+    movies.forEach(m => {
+        document.getElementById('movieResultArea').innerHTML += `<tr id="movieRow${m.movieId}">` +
+            '<td>' + m.movieId + '</td>' + '<td>' + m.title + '</td>' + '<td>' + m.runtime + '</td>' + '<td>' + m.year + '</td>' +
+            '<td>' + m.country + '</td>' + '<td>' + m.budget + '</td>' + '<td>' + m.genreId + '</td>' +
+            `<td><button type="button" onclick="deleteMovie(${m.movieId})">Delete</button>` +
+            `<button type="button" onclick="showUpdateMovie(${m.movieId})">Update</button></td></tr>`;
+    });
+}
+
+function createMovie() {
+    let movieCreateTitle = document.getElementById('movieCreateTitle').value;
+    let movieCreateRuntime = document.getElementById('movieCreateRuntime').value;
+    let movieCreateYear = document.getElementById('movieCreateYear').value;
+    let movieCreateCountry = document.getElementById('movieCreateCountry').value;
+    let movieCreateBudget = document.getElementById('movieCreateBudget').value;
+    let movieCreateGenreId = document.getElementById('movieCreateGenreId').value;
+    fetch('http://localhost:31652/movie',
+        {
+            method: 'POST',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    title: movieCreateTitle,
+                    runtime: movieCreateRuntime,
+                    year: movieCreateYear,
+                    country: movieCreateCountry,
+                    budget: movieCreateBudget,
+                    genreId: movieCreateGenreId
+                }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getMovies();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function deleteMovie(id) {
+    fetch('http://localhost:31652/movie/' + id,
+        {
+            method: 'DELETE',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: null
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getMovies();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function showUpdateMovie(id) {
+    if (document.getElementById('movieUpdateForm') != null) {
+        document.getElementById('movieUpdateForm').remove();
+    }
+
+    let movieObject = movies.find(m => m.movieId == id);
+
+    let elementToUpdate = document.getElementById("movieRow" + id);
+    let newElement = document.createElement('tr');
+    newElement.setAttribute('id', 'movieUpdateForm');
+    newElement.innerHTML = `<td colspan="8">
+            <h3>Update</h3>
+            <label>Title</label>
+            <input type="text" id="movieUpdateTitle" value="${movieObject.title}" placeholder="Enter the Title of Movie here" />
+            <label>Runtime</label>
+            <input type="number" id="movieUpdateRuntime" value="${movieObject.runtime}" placeholder="Enter the Runtime of Movie here" />
+            <label>Year</label>
+            <input type="number" id="movieUpdateYear" value="${movieObject.year}" placeholder="Enter the release Year of Movie here" />
+            <label>Country</label>
+            <input type="text" id="movieUpdateCountry" value="${movieObject.country}" placeholder="Enter the Country where the Movie was filmed here" />
+            <label>Budget</label>
+            <input type="number" id="movieUpdateBudget" value="${movieObject.budget}" placeholder="Enter the Budget of Movie here" />
+            <label>GenreId</label>
+            <input type="number" id="movieUpdateGenreId" value="${movieObject.genreId}" placeholder="Enter the GenreId of Movie here" />
+            <button type="button" onclick="updateMovie(${id})">Update Movie</button></td>`;
+
+    elementToUpdate.parentElement.insertBefore(newElement, elementToUpdate.nextElementSibling);
+}
+
+function updateMovie(id) {
+    let movieUpdateTitle = document.getElementById('movieUpdateTitle').value;
+    let movieUpdateRuntime = document.getElementById('movieUpdateRuntime').value;
+    let movieUpdateYear = document.getElementById('movieUpdateYear').value;
+    let movieUpdateCountry = document.getElementById('movieUpdateCountry').value;
+    let movieUpdateBudget = document.getElementById('movieUpdateBudget').value;
+    let movieUpdateGenreId = document.getElementById('movieUpdateGenreId').value;
+
+    fetch('http://localhost:31652/movie',
+        {
+            method: 'PUT',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    movieId: id,
+                    title: movieUpdateTitle,
+                    runtime: movieUpdateRuntime,
+                    year: movieUpdateYear,
+                    country: movieUpdateCountry,
+                    budget: movieUpdateBudget,
+                    genreId: movieUpdateGenreId
+                }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getMovies();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+
+// GENRE
 
 async function getGenres() {
     await fetch('http://localhost:31652/genre')
@@ -119,8 +317,8 @@ function showUpdateGenre(id) {
 
     let newElement = document.createElement('tr');
     newElement.setAttribute('id', 'genreUpdateForm');
-    newElement.innerHTML = `<td colspan="3"><label>Genre value</label>
-            <input type="text" id="genreUpdateValue" value="${genres.find(g => g.genreId == id).value}" />
+    newElement.innerHTML = `<td colspan="3"><h3>Update</h3><label>Genre value</label>
+            <input type="text" id="genreUpdateValue" placeholder="Enter the value of Genre here" value="${genres.find(g => g.genreId == id).value}" />
             <button type="button" onclick="updateGenre(${id})">Update Genre</button></td>`;
 
     elementToUpdate.parentElement.insertBefore(newElement, elementToUpdate.nextElementSibling);
@@ -150,3 +348,5 @@ function updateGenre(id) {
             console.error('Error:', error);
         });
 }
+
+

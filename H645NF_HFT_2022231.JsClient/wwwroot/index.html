@@ -6,11 +6,56 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <div id="menuDiv">
+        <button onclick="showMovie()">Movie</button>
+        <button onclick="showGenre()">Genre</button>
+        <button onclick="showRent()">Rent</button>
+        <button onclick="showNonCrud()">NonCRUD</button>
+    </div>
+
+    <div id="movieDiv">
+        <h1>Movies</h1>
+        <div id="movieCreateForm">
+            <h3>Create</h3>
+            <label>Title</label>
+            <input type="text" id="movieCreateTitle" placeholder="Enter the Title of Movie here" />
+            <label>Runtime</label>
+            <input type="number" id="movieCreateRuntime" placeholder="Enter the Runtime of Movie here" />
+            <label>Year</label>
+            <input type="number" id="movieCreateYear" placeholder="Enter the release Year of Movie here" />
+            <label>Country</label>
+            <input type="text" id="movieCreateCountry" placeholder="Enter the Country where the Movie was filmed here" />
+            <label>Budget</label>
+            <input type="number" id="movieCreateBudget" placeholder="Enter the Budget of Movie here" />
+            <label>GenreId</label>
+            <input type="number" id="movieCreateGenreId" placeholder="Enter the GenreId of Movie here" />
+            <button type="button" onclick="createMovie()">Create Movie</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Runtime</th>
+                    <th>Year</th>
+                    <th>Country</th>
+                    <th>Budget</th>
+                    <th>GenreID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="movieResultArea">
+            </tbody>
+        </table>
+    </div>
+
     <div id="genreDiv">
         <h1>Genres</h1>
         <div id="genreCreateForm">
-            <label>Genre value</label>
-            <input type="text" id="genreCreateValue" />
+            <h3>Create</h3>
+            <label>Genre Value</label>
+            <input type="text" id="genreCreateValue" placeholder="Enter the Value of Genre here" />
             <button type="button" onclick="createGenre()">Create Genre</button>
         </div>
 

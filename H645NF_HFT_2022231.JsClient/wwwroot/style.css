@@ -23,6 +23,37 @@ table button {
     margin: 10px;
 }
 
+/* MOVIE */
+
+#movieCreateForm {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    font-weight: bolder;
+}
+
+#movieCreateForm h3, #movieCreateForm label, #movieCreateForm input, #movieCreateForm button {
+    margin: 7px;
+    padding: 7px;
+}
+
+#movieUpdateForm td {
+    font-weight: bolder;
+}
+
+#movieUpdateForm h3, #movieUpdateForm label, #movieUpdateForm input, #movieUpdateForm button {
+    display: block;
+    margin: 0px auto 7px auto;
+    padding: 7px;
+    width: 50%;
+    box-sizing: border-box; /* Include padding within the width calculation */
+}
+
+#movieDiv {
+    display: none;
+}
+
+/* GENRE */
 #genreCreateForm {
     display: flex;
     flex-direction: column;
@@ -30,7 +61,7 @@ table button {
     font-weight: bolder;
 }
 
-#genreCreateForm label, #genreCreateForm input, #genreCreateForm button {
+#genreCreateForm h3, #genreCreateForm label, #genreCreateForm input, #genreCreateForm button {
     margin: 7px;
     padding: 7px;
 }
@@ -39,10 +70,30 @@ table button {
     font-weight: bolder;
 }
 
-#genreUpdateForm label, #genreUpdateForm input, #genreUpdateForm button {
+#genreUpdateForm h3, #genreUpdateForm label, #genreUpdateForm input, #genreUpdateForm button {
     display: block;
     margin: 0px auto 7px auto;
     padding: 7px;
     width: 50%;
     box-sizing: border-box; /* Include padding within the width calculation */
 }
+
+#genreDiv {
+    display: none;
+}
+
+/* MENU */
+
+#menuDiv {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#menuDiv button {
+    width: 50%;
+    margin: 0px auto 20px auto;
+    padding: 15px;
+}
+
+
