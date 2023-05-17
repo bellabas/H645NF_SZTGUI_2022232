@@ -30,6 +30,12 @@ namespace H645NF_HFT_2022231.WpfClient
             set { SetProperty(ref name, value); (RentedMovieTitleOfPersonCommand as RelayCommand).NotifyCanExecuteChanged(); }
         }
 
+        //commands
+        public ICommand GenreWithAverageBudgetCommand { get; set; }
+        public ICommand MoviesByGenreCommand { get; set; }
+        public ICommand MoviesAverageRatingCommand { get; set; }
+        public ICommand NationalMovieRentCommand { get; set; }
+        public ICommand RentalNameWithMovieTitleAndGenreCommand { get; set; }
         public ICommand RentedMovieTitleOfPersonCommand { get; set; }
 
         //collections
@@ -53,14 +59,38 @@ namespace H645NF_HFT_2022231.WpfClient
         {
             if (!IsInDesignMode)
             {
-                GenreWithAverageBudgets = new RestService("http://localhost:31652/").Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
-                MoviesByGenres = new RestService("http://localhost:31652/").Get<MoviesByGenre>("GenreNonCRUDMethods/GetMoviesByGenre");
-                MoviesAverageRatings = new RestService("http://localhost:31652/").Get<MoviesAverageRating>("MovieNonCRUDMethods/GetMoviesAverageRating");
-                NationalMovieRents = new RestService("http://localhost:31652/").Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
-                RentalNameWithMovieTitleAndGenres = new RestService("http://localhost:31652/").Get<RentalNameWithMovieTitleAndGenre>("RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre");
-                RentedMovieTitleOfPersons = new RestService("http://localhost:31652/").Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}");
+                GenreWithAverageBudgetCommand = new RelayCommand(() =>
+                {
+                    GenreWithAverageBudgets = new RestService("http://localhost:31652/").Get<GenreWithAverageBudget>("GenreNonCRUDMethods/GetGenreWithAverageBudget");
+                });
 
-                RentedMovieTitleOfPersonCommand = new RelayCommand(() => { RentedMovieTitleOfPersons = new RestService("http://localhost:31652/").Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}"); }, () => { return Name != ""; });
+                MoviesByGenreCommand = new RelayCommand(() =>
+                {
+                    MoviesByGenres = new RestService("http://localhost:31652/").Get<MoviesByGenre>("GenreNonCRUDMethods/GetMoviesByGenre");
+                });
+
+                MoviesAverageRatingCommand = new RelayCommand(() =>
+                {
+                    MoviesAverageRatings = new RestService("http://localhost:31652/").Get<MoviesAverageRating>("MovieNonCRUDMethods/GetMoviesAverageRating");
+                });
+
+                NationalMovieRentCommand = new RelayCommand(() =>
+                {
+                    NationalMovieRents = new RestService("http://localhost:31652/").Get<NationalMovieRent>("RentNonCRUDMethods/GetNationalMovieRent");
+                });
+
+                RentalNameWithMovieTitleAndGenreCommand = new RelayCommand(() =>
+                {
+                    RentalNameWithMovieTitleAndGenres = new RestService("http://localhost:31652/").Get<RentalNameWithMovieTitleAndGenre>("RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre");
+                });
+
+                RentedMovieTitleOfPersonCommand = new RelayCommand(() =>
+                {
+                    RentedMovieTitleOfPersons = new RestService("http://localhost:31652/").Get<RentedMovieTitleOfPerson>($"RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name={Name}");
+                }, () =>
+                {
+                    return Name != "";
+                });
             }
         }
     }

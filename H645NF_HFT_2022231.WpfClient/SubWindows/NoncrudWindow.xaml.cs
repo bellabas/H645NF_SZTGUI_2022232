@@ -32,6 +32,7 @@ namespace H645NF_HFT_2022231.WpfClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            (DataContext as NoncrudWindowViewModel).GenreWithAverageBudgetCommand.Execute(null);
             // set the ItemsSource binding
             var binding = new Binding("GenreWithAverageBudgets");
             binding.Mode = BindingMode.OneWay;
@@ -62,6 +63,7 @@ namespace H645NF_HFT_2022231.WpfClient
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            (DataContext as NoncrudWindowViewModel).MoviesByGenreCommand.Execute(null);
             // set the ItemsSource binding
             var binding = new Binding("MoviesByGenres");
             binding.Mode = BindingMode.OneWay;
@@ -94,6 +96,7 @@ namespace H645NF_HFT_2022231.WpfClient
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            (DataContext as NoncrudWindowViewModel).MoviesAverageRatingCommand.Execute(null);
             // set the ItemsSource binding
             var binding = new Binding("MoviesAverageRatings");
             binding.Mode = BindingMode.OneWay;
@@ -124,6 +127,7 @@ namespace H645NF_HFT_2022231.WpfClient
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            (DataContext as NoncrudWindowViewModel).RentalNameWithMovieTitleAndGenreCommand.Execute(null);
             // set the ItemsSource binding
             var binding = new Binding("RentalNameWithMovieTitleAndGenres");
             binding.Mode = BindingMode.OneWay;
@@ -162,6 +166,7 @@ namespace H645NF_HFT_2022231.WpfClient
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
+            (DataContext as NoncrudWindowViewModel).NationalMovieRentCommand.Execute(null);
             // set the ItemsSource binding
             var binding = new Binding("NationalMovieRents");
             binding.Mode = BindingMode.OneWay;
