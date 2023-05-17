@@ -667,7 +667,7 @@ async function getRentedMovieTitlesOfPerson() {
 
 
 function displayRentedMovieTitlesOfPerson() {
-    document.getElementById("noncrudResultH3").innerHTML = 'National Movie Rent Result';
+    document.getElementById("noncrudResultH3").innerHTML = 'Rented Movie Titles Of Person Result';
     document.getElementById('noncrudResultArea').innerHTML = "";
     document.getElementById('noncrudResultArea').innerHTML += `<tr><td colspan="2" class="lightblue" style="border: none; font-weight: bolder;">${rentedMovieTitlesOfPersons[0].name}</td>`;
     rentedMovieTitlesOfPersons.forEach(t => {

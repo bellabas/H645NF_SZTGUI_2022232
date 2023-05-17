@@ -137,13 +137,14 @@ table button {
 
 #menuDiv {
     display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #menuDiv button {
     width: 50%;
-    margin: 0px auto 20px auto;
+    margin: 0px auto 0px auto;
     padding: 15px;
 }
 
