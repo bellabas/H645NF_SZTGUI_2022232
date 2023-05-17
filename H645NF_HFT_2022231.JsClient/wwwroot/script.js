@@ -479,9 +479,9 @@ function showUpdateRent(id) {
             <label>Rating</label>
             <input type="number" id="rentUpdateRating" value="${rentObject.rating}" placeholder="Enter the Renter's movie Rating here" />
             <label>Start</label>
-            <input type="date" id="rentUpdateStart" value="${rentObject.start.substring(0,10)}" placeholder="Enter the Rental's Start here" />
+            <input type="date" id="rentUpdateStart" value="${rentObject.start.substring(0,10)}" placeholder="Enter the Start date of Rental here" />
             <label>End</label>
-            <input type="date" id="rentUpdateEnd" value="${rentObject.end.substring(0,10)}" placeholder="Enter the Rental's End here" />
+            <input type="date" id="rentUpdateEnd" value="${rentObject.end.substring(0,10)}" placeholder="Enter the End date of Rental here" />
             <label>MovieId</label>
             <input type="number" id="rentUpdateMovieId" value="${rentObject.movieId}" placeholder="Enter the ID of Rented Movie here" />
             <button type="button" onclick="updateRent(${id})">Update Rent</button></td>`;
