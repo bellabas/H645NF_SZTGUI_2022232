@@ -118,14 +118,19 @@
 
     <div id="noncrudDiv" >
         <div id="noncrudButtons">
-            <button type="button">Get Genre With Average Budget</button>
-            <button type="button">Get Movies By Genre</button>
-            <button type="button">Get Movies Average Rating</button>
-            <button type="button">Get Rental Name With Movie Title And Genre</button>
-            <button type="button">Get National Movie Rent</button>
+            <button type="button" onclick="getGenreWithAverageBudget()">Get Genre With Average Budget</button>
+            <button type="button" onclick="getMoviesByGenre()">Get Movies By Genre</button>
+            <button type="button" onclick="getMoviesAverageRating()">Get Movies Average Rating</button>
+            <button type="button" onclick="getRentalNameWithMovieTitleAndGenre()">Get Rental Name With Movie Title And Genre</button>
+            <button type="button" onclick="getNationalMovieRent()">Get National Movie Rent</button>
             <input type="text" id="personsName" placeholder="Enter the Person's Name here" />
-            <button type="button">Get Rented Movie Titles Of Person</button>
+            <button type="button" onclick="getRentedMovieTitlesOfPerson()">Get Rented Movie Titles Of Person</button>
         </div>
+        <h3 id="noncrudResultH3"></h3>
+        <table>
+            <tbody id="noncrudResultArea">
+            </tbody>
+        </table>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>

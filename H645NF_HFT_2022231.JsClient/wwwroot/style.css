@@ -29,7 +29,7 @@ table button {
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 #movieCreateForm h3, #movieCreateForm label, #movieCreateForm input, #movieCreateForm button {
@@ -118,6 +118,20 @@ table button {
     display: none;
 }
 
+#noncrudButtons {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+#noncrudButtons button, #noncrudButtons input {
+    display: block;
+    margin: 0px auto 7px auto;
+    padding: 7px;
+    width: 25%;
+    box-sizing: border-box; /* Include padding within the width calculation */
+}
+
 
 /* MENU */
 
@@ -134,3 +148,12 @@ table button {
 }
 
 
+/* COLORS */
+
+.azure {
+    background-color: azure;
+}
+
+.lightblue {
+    background-color: lightblue;
+}

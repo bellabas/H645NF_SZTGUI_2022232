@@ -4,6 +4,11 @@ let movies = [];
 let rents = [];
 
 let genreWithAverageBudgets = [];
+let moviesByGenres = [];
+let moviesAverageRatings = [];
+let rentalNameWithMovieTitleAndGenres = [];
+let nationalMovieRents = [];
+let rentedMovieTitlesOfPersons = [];
 
 let connection = null;
 
@@ -116,6 +121,9 @@ function showRent() {
 
 function showNoncrud() {
     hideAll();
+    document.getElementById('noncrudResultH3').innerHTML = "";
+    document.getElementById('noncrudResultArea').innerHTML = "";
+
     document.getElementById('noncrudDiv').style.display = 'block';
 }
 
@@ -125,6 +133,7 @@ function hideAll() {
     document.getElementById('rentDiv').style.display = 'none';
     document.getElementById('noncrudDiv').style.display = 'none';
 }
+
 
 // MOVIE
 
@@ -538,8 +547,9 @@ function updateRent(id) {
 
 // NONCRUDS
 
+//getGenreWithAverageBudget
 async function getGenreWithAverageBudget() {
-    await fetch('http://localhost:31652/rent')
+    await fetch('http://localhost:31652/GenreNonCRUDMethods/GetGenreWithAverageBudget')
         .then(x => x.json())
         .then(y => {
             genreWithAverageBudgets = y;
@@ -550,13 +560,119 @@ async function getGenreWithAverageBudget() {
 
 
 function displayGenreWithAverageBudget() {
-    document.getElementById('rentResultArea').innerHTML = "";
-    rents.forEach(r => {
-        document.getElementById('rentResultArea').innerHTML += `<tr id="rentRow${r.rentId}">` + '<td>' + r.rentId + '</td>' +
-            '<td>' + r.name + '</td>' + '<td>' + r.age + '</td>' + '<td>' + r.gender + '</td>' + '<td>' + r.country + '</td>' +
-            '<td>' + r.rating + '</td>' + '<td>' + r.start + '</td>' + '<td>' + r.end + '</td>' + '<td>' + r.interval + '</td>' +
-            '<td>' + r.movieId + '</td>' +
-            `<td><button type="button" onclick="deleteRent(${r.rentId})">Delete</button>` +
-            `<button type="button" onclick="showUpdateRent(${r.rentId})">Update</button></td></tr>`;
+    document.getElementById("noncrudResultH3").innerHTML = 'Genre With Average Budget Result';
+    document.getElementById('noncrudResultArea').innerHTML = "";
+    genreWithAverageBudgets.forEach(t => {
+        document.getElementById('noncrudResultArea').innerHTML += `<tr><td class="lightblue">${t.genre}</td><td class="azure">${t.budgetAverage}</td></tr>`;
     });
 }
+
+//getMoviesByGenre
+async function getMoviesByGenre() {
+    await fetch('http://localhost:31652/GenreNonCRUDMethods/GetMoviesByGenre')
+        .then(x => x.json())
+        .then(y => {
+            moviesByGenres = y;
+            //console.log(moviesByGenres);
+            displayMoviesByGenre();
+        });
+}
+
+
+function displayMoviesByGenre() {
+    document.getElementById("noncrudResultH3").innerHTML = 'Movies By Genre Result';
+    document.getElementById('noncrudResultArea').innerHTML = "";
+    moviesByGenres.forEach(t => {
+        document.getElementById('noncrudResultArea').innerHTML += `<tr><td colspan="2" class="lightblue" style="border: none; font-weight: bolder;">${t.genreName}</td>`;
+
+        t.movieTitles.forEach(m => {
+            document.getElementById('noncrudResultArea').innerHTML += `<td class="lightblue" style="border: none;"></td><td class="azure" >${m}</td>`;
+        })
+        document.getElementById('noncrudResultArea').innerHTML += '</tr>';
+    });
+}
+
+//getMoviesAverageRating
+async function getMoviesAverageRating() {
+    await fetch('http://localhost:31652/MovieNonCRUDMethods/GetMoviesAverageRating')
+        .then(x => x.json())
+        .then(y => {
+            moviesAverageRatings = y;
+            //console.log(moviesAverageRatings);
+            displayMoviesAverageRating();
+        });
+}
+
+
+function displayMoviesAverageRating() {
+    document.getElementById("noncrudResultH3").innerHTML = 'Movies Average Rating Result';
+    document.getElementById('noncrudResultArea').innerHTML = "";
+    moviesAverageRatings.forEach(t => {
+        document.getElementById('noncrudResultArea').innerHTML += `<tr><td class="lightblue" >${t.movieTitle}</td><td class="azure" >${t.averageRating}</td></tr>`;
+    });
+}
+
+//getRentalNameWithMovieTitleAndGenre
+async function getRentalNameWithMovieTitleAndGenre() {
+    await fetch('http://localhost:31652/RentNonCRUDMethods/GetRentalNameWithMovieTitleAndGenre')
+        .then(x => x.json())
+        .then(y => {
+            rentalNameWithMovieTitleAndGenres = y;
+            //console.log(rentalNameWithMovieTitleAndGenres);
+            displayRentalNameWithMovieTitleAndGenre();
+        });
+}
+
+
+function displayRentalNameWithMovieTitleAndGenre() {
+    document.getElementById("noncrudResultH3").innerHTML = 'Rental Name With Movie Title And Genre Result';
+    document.getElementById('noncrudResultArea').innerHTML = "";
+    rentalNameWithMovieTitleAndGenres.forEach(t => {
+        document.getElementById('noncrudResultArea').innerHTML += `<tr><td class="lightblue" >${t.name}</td><td class="azure" >${t.movieName}</td><td class="azure" >${t.genre}</td></tr>`;
+    });
+}
+
+//getNationalMovieRent
+async function getNationalMovieRent() {
+    await fetch('http://localhost:31652/RentNonCRUDMethods/GetNationalMovieRent')
+        .then(x => x.json())
+        .then(y => {
+            nationalMovieRents = y;
+            //console.log(nationalMovieRents);
+            displayNationalMovieRent();
+        });
+}
+
+
+function displayNationalMovieRent() {
+    document.getElementById("noncrudResultH3").innerHTML = 'National Movie Rent Result';
+    document.getElementById('noncrudResultArea').innerHTML = "";
+    nationalMovieRents.forEach(t => {
+        document.getElementById('noncrudResultArea').innerHTML += `<tr><td class="lightblue" >${t.name}</td><td class="azure" >${t.title}</td><td class="azure" >${t.country}</td></tr>`;
+    });
+}
+
+//getRentedMovieTitlesOfPerson
+async function getRentedMovieTitlesOfPerson() {
+    let name = document.getElementById('personsName').value;
+    let url = 'http://localhost:31652/RentNonCRUDMethods/GetRentedMovieTitlesOfPerson?name=' + name;
+    await fetch(url)
+        .then(x => x.json())
+        .then(y => {
+            rentedMovieTitlesOfPersons = y;
+            //console.log(rentedMovieTitleOfPersons);
+            displayRentedMovieTitlesOfPerson();
+        });
+}
+
+
+function displayRentedMovieTitlesOfPerson() {
+    document.getElementById("noncrudResultH3").innerHTML = 'National Movie Rent Result';
+    document.getElementById('noncrudResultArea').innerHTML = "";
+    document.getElementById('noncrudResultArea').innerHTML += `<tr><td colspan="2" class="lightblue" style="border: none; font-weight: bolder;">${rentedMovieTitlesOfPersons[0].name}</td>`;
+    rentedMovieTitlesOfPersons.forEach(t => {
+        document.getElementById('noncrudResultArea').innerHTML += `<td class="lightblue" style="border: none;"></td><td class="azure" >${t.movieTitle}</td>`;
+    });
+    document.getElementById('noncrudResultArea').innerHTML += '</tr>';
+}
+
