@@ -82,6 +82,37 @@ table button {
     display: none;
 }
 
+
+/* RENT */
+#rentCreateForm {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    font-weight: bolder;
+}
+
+#rentCreateForm h3, #rentCreateForm label, #rentCreateForm input, #rentCreateForm button {
+    margin: 7px;
+    padding: 7px;
+}
+
+#rentUpdateForm td {
+    font-weight: bolder;
+}
+
+#rentUpdateForm h3, #rentUpdateForm label, #rentUpdateForm input, #rentUpdateForm button {
+    display: block;
+    margin: 0px auto 7px auto;
+    padding: 7px;
+    width: 50%;
+    box-sizing: border-box; /* Include padding within the width calculation */
+}
+
+#rentDiv {
+    display: none;
+}
+
+
 /* MENU */
 
 #menuDiv {

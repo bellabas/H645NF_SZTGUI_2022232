@@ -9,6 +9,7 @@ let connection = null;
 setUpSignalR();
 getGenres();
 getMovies();
+getRents();
 
 
 // SIGNALR
@@ -57,6 +58,25 @@ function setUpSignalR() {
         getGenres();
     });
 
+    // rent
+    connection.on("RentCreated", (user, message) => {
+        //console.log(user);
+        //console.log(message);
+        getRents();
+    });
+
+    connection.on("RentDeleted", (user, message) => {
+        //console.log(user);
+        //console.log(message);
+        getRents();
+    });
+
+    connection.on("RentUpdated", (user, message) => {
+        //console.log(user);
+        //console.log(message);
+        getRents();
+    });
+
     connection.onclose(async () =>
     {
         await start();
@@ -95,7 +115,7 @@ function showRent() {
 function hideAll() {
     document.getElementById('genreDiv').style.display = 'none';
     document.getElementById('movieDiv').style.display = 'none';
-    //document.getElementById('rentDiv').style.display = 'none';
+    document.getElementById('rentDiv').style.display = 'none';
 
 }
 
@@ -349,4 +369,163 @@ function updateGenre(id) {
         });
 }
 
+
+// RENT
+
+async function getRents() {
+    await fetch('http://localhost:31652/rent')
+        .then(x => x.json())
+        .then(y => {
+            rents = y;
+            //console.log(rents);
+            displayRents();
+        });
+}
+
+
+function displayRents() {
+    document.getElementById('rentResultArea').innerHTML = "";
+    rents.forEach(r => {
+        document.getElementById('rentResultArea').innerHTML += `<tr id="rentRow${r.rentId}">` + '<td>' + r.rentId + '</td>' +
+            '<td>' + r.name + '</td>' + '<td>' + r.age + '</td>' + '<td>' + r.gender + '</td>' + '<td>' + r.country + '</td>' +
+            '<td>' + r.rating + '</td>' + '<td>' + r.start + '</td>' + '<td>' + r.end + '</td>' + '<td>' + r.interval + '</td>' +
+            '<td>' + r.movieId + '</td>' +
+            `<td><button type="button" onclick="deleteRent(${r.rentId})">Delete</button>` +
+            `<button type="button" onclick="showUpdateRent(${r.rentId})">Update</button></td></tr>`;
+    });
+}
+
+function createRent() {
+    let rentCreateName = document.getElementById('rentCreateName').value;
+    let rentCreateAge = document.getElementById('rentCreateAge').value;
+    let rentCreateGender = document.getElementById('rentCreateGender').value;
+    let rentCreateCountry = document.getElementById('rentCreateCountry').value;
+    let rentCreateRating = document.getElementById('rentCreateRating').value;
+    let rentCreateStart = document.getElementById('rentCreateStart').value;
+    let rentCreateEnd = document.getElementById('rentCreateEnd').value;
+    let rentCreateMovieId = document.getElementById('rentCreateMovieId').value;
+
+    fetch('http://localhost:31652/rent',
+        {
+            method: 'POST',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    name: rentCreateName,
+                    age: rentCreateAge,
+                    gender: rentCreateGender,
+                    country: rentCreateCountry,
+                    rating: rentCreateRating,
+                    start: rentCreateStart,
+                    end: rentCreateEnd,
+                    movieId: rentCreateMovieId
+                }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getRents();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function deleteRent(id) {
+    fetch('http://localhost:31652/rent/' + id,
+        {
+            method: 'DELETE',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: null
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getRents();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function showUpdateRent(id) {
+    if (document.getElementById('rentUpdateForm') != null) {
+        document.getElementById('rentUpdateForm').remove();
+    }
+
+    let rentObject = rents.find(r => r.rentId == id);
+    console.log(rentObject.start);
+    console.log(rentObject.end);
+
+    let elementToUpdate = document.getElementById("rentRow" + id);
+    let newElement = document.createElement('tr');
+    newElement.setAttribute('id', 'rentUpdateForm');
+    newElement.innerHTML = `<td colspan="11">
+            <h3>Update</h3>
+            <label>Name</label>
+            <input type="text" id="rentUpdateName" value="${rentObject.name}" placeholder="Enter the Renter's Name here" />
+            <label>Age</label>
+            <input type="number" id="rentUpdateAge" value="${rentObject.age}" placeholder="Enter the Renter's Age here" />
+            <label>Gender</label>
+            <input type="text" id="rentUpdateGender" value="${rentObject.gender}" placeholder="Enter the Renter's Gender here" />
+            <label>Country</label>
+            <input type="text" id="rentUpdateCountry" value="${rentObject.country}" placeholder="Enter the Renter's Country here" />
+            <label>Rating</label>
+            <input type="number" id="rentUpdateRating" value="${rentObject.rating}" placeholder="Enter the Renter's movie Rating here" />
+            <label>Start</label>
+            <input type="date" id="rentUpdateStart" value="${rentObject.start.substring(0,10)}" placeholder="Enter the Rental's Start here" />
+            <label>End</label>
+            <input type="date" id="rentUpdateEnd" value="${rentObject.end.substring(0,10)}" placeholder="Enter the Rental's End here" />
+            <label>MovieId</label>
+            <input type="number" id="rentUpdateMovieId" value="${rentObject.movieId}" placeholder="Enter the ID of Rented Movie here" />
+            <button type="button" onclick="updateRent(${id})">Update Rent</button></td>`;
+
+    elementToUpdate.parentElement.insertBefore(newElement, elementToUpdate.nextElementSibling);
+}
+
+function updateRent(id) {
+    let rentUpdateName = document.getElementById('rentUpdateName').value;
+    let rentUpdateAge = document.getElementById('rentUpdateAge').value;
+    let rentUpdateGender = document.getElementById('rentUpdateGender').value;
+    let rentUpdateCountry = document.getElementById('rentUpdateCountry').value;
+    let rentUpdateRating = document.getElementById('rentUpdateRating').value;
+    let rentUpdateStart = document.getElementById('rentUpdateStart').value;
+    let rentUpdateEnd = document.getElementById('rentUpdateEnd').value;
+    let rentUpdateMovieId = document.getElementById('rentUpdateMovieId').value;
+
+    fetch('http://localhost:31652/rent',
+        {
+            method: 'PUT',
+            headers:
+            {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    rentId: id,
+                    name: rentUpdateName,
+                    age: rentUpdateAge,
+                    gender: rentUpdateGender,
+                    country: rentUpdateCountry,
+                    rating: rentUpdateRating,
+                    start: rentUpdateStart,
+                    end: rentUpdateEnd,
+                    movieId: rentUpdateMovieId
+                }),
+        })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getRents();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
 

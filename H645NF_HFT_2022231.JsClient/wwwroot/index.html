@@ -72,6 +72,50 @@
         </table>
     </div>
 
+    <div id="rentDiv">
+        <h1>Rents</h1>
+        <div id="rentCreateForm">
+            <h3>Create</h3>
+            <label>Name</label>
+            <input type="text" id="rentCreateName" placeholder="Enter the Renter's Name here" />
+            <label>Age</label>
+            <input type="number" id="rentCreateAge" placeholder="Enter the Renter's Age here" />
+            <label>Gender</label>
+            <input type="text" id="rentCreateGender" placeholder="Enter the Renter's Gender here" />
+            <label>Country</label>
+            <input type="text" id="rentCreateCountry" placeholder="Enter the Renter's Country here" />
+            <label>Rating</label>
+            <input type="number" id="rentCreateRating" placeholder="Enter the Renter's movie Rating here" />
+            <label>Start</label>
+            <input type="date" id="rentCreateStart" placeholder="Enter the Rental's Start here" />
+            <label>End</label>
+            <input type="date" id="rentCreateEnd" placeholder="Enter the Rental's End here" />
+            <label>MovieId</label>
+            <input type="number" id="rentCreateMovieId" placeholder="Enter the ID of Rented Movie here" />
+            <button type="button" onclick="createRent()">Create Rent</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Country</th>
+                    <th>Rating</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Interval</th>
+                    <th>MovieId</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="rentResultArea">
+            </tbody>
+        </table>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>
 </body>
