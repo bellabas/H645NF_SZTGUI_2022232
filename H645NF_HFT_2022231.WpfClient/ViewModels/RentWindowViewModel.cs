@@ -110,6 +110,7 @@ namespace H645NF_HFT_2022231.WpfClient
                 DeleteRentCommand = new RelayCommand(() =>
                 {
                     Rents.Delete(SelectedRent.RentId);
+                    SelectedRent = new Rent();
                 },
                 () =>
                 {

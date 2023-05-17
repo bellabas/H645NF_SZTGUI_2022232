@@ -100,6 +100,7 @@ namespace H645NF_HFT_2022231.WpfClient
                 DeleteGenreCommand = new RelayCommand(() =>
                 {
                     Genres.Delete(SelectedGenre.GenreId);
+                    SelectedGenre = new Genre();
                 },
                 () =>
                 {

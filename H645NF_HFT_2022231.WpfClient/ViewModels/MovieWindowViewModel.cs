@@ -110,6 +110,7 @@ namespace H645NF_HFT_2022231.WpfClient
                 DeleteMovieCommand = new RelayCommand(() =>
                 {
                     Movies.Delete(SelectedMovie.MovieId);
+                    SelectedMovie = new Movie();
                 },
                 () =>
                 {
